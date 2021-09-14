@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <style>
+        .demo {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .demo__row {
+            display: flex;
+            flex-direction: row;
+        }
+
+        .demo__caption {
+            flex: 1;
+            text-align: center;
+        }
+
+        .demo__text {
+            flex: 1;
+            margin: 0 8px;
+            height: auto;
+            padding: 8px;
+            height: 200px;
+        }
+    </style>
+</head>
+<body>
+<h1>ogxt-utils demo project</h1>
+<section class="section html2ogxt">
+    <h2 class="section__title">html2ogxt</h2>
+    <pre><code class="section__code">var utils = require('ogxt-utils');
+var ogxt = utils.html2ogxt(html, true);</code></pre>
+    <div class="section__demo demo">
+        <div class="demo__row">
+            <div class="demo__caption">html</div>
+            <div class="demo__caption">ogxt</div>
+        </div>
+        <div class="demo__row">
+        <textarea class="demo__text demo__text--input"><p>Мне очинь жаль, что этот лот не оправдал ваших ожиданий.</p>
+ <p>Надеюсь, что……</p>
+</textarea>
+            <textarea class="demo__text demo__text--output" readonly></textarea>
+        </div>
+    </div>
+</section>
+<section class="section annotate">
+    <h2 class="section__title">annotate</h2>
+    <pre><code class="section__code">var utils = require('ogxt-utils');
+var annotations = {}; // object received after check
+var annotatedHtml = utils.annotate(html, annotations);</code></pre>
+    <div class="section__demo demo">
+        <div class="demo__row">
+            <div class="demo__caption">html</div>
+            <div class="demo__caption">annotations</div>
+            <div class="demo__caption">annotatedHtml</div>
+        </div>
+        <div class="demo__row">
+        <textarea class="demo__text demo__text--input-html"><p>Мне очинь жаль, что этот лот не оправдал ваших ожиданий.</p>
+ <p>Надеюсь, что……</p>
+</textarea>
+            <textarea class="demo__text demo__text--input-annotations">{
+  "kinds": {
+    "mkSpelling": "орфография",
+    "mkPunctuation": "пунктуация",
+    "mkTypography": "типографика"
+  },
+  "annotations": [
+    {
+      "id": 0,
+      "kind": "mkSpelling",
+      "selection": "очинь",
+      "position": [
+        {
+          "start": 4,
+          "end": 8
+        }
+      ],
+      "description": "ошибка в безударном гласном",
+      "suggestion": "<a data-kind=\"replace-whole\" title=\"заменить на этот вариант (Alt-Insert)\" data-word=\"очень\">оч<u>е</u>нь</a>",
+      "explanation": "в соответствии с общим правилом написание букв на месте безударных гласных в корнях устанавливается путем проверки словами и формами с тем же корнем, в которых проверяемый гласный находится под ударением; если написание не может быть установлено по общему правилу (непроверяемых гласных), то оно определяется в словарном порядке <a href=\"https://litera5.ru/library/OGL/a.1.2.1.html\" target=\"_blank\">орфография 1.2.1</a>",
+      "rule": "a.1.2.1",
+      "tuid": "#dlg66q"
+    },
+    {
+      "id": 1,
+      "kind": "mkPunctuation",
+      "selection": "Надеюсь, что",
+      "position": [
+        {
+          "start": 58,
+          "end": 69
+        }
+      ],
+      "description": " лишняя запятая",
+      "suggestion": " удалите запятую перед словом «что»",
+      "explanation": "если придаточное предложение состоит из одного только союзного слова (<i></i><b><i>кто, что, когда, где, куда, откуда, какой, почему, зачем, как, сколько, чей, который, каков</i></b><i></i>), то между главным и последующим за ним придаточным предложением запятая не ставится, например: <i>Учащимся назначили экзамен, но не уточнили когда.</i> <a href=\"https://litera5.ru/library/OGL/b.7.2.2.html\" target=\"_blank\">пунктуация 7.2.2</a>",
+      "rule": "b.7.2.2",
+      "tuid": "#ke6zpt"
+    },
+    {
+      "id": 2,
+      "kind": "mkTypography",
+      "selection": "……",
+      "position": [
+        {
+          "start": 70,
+          "end": 71
+        }
+      ],
+      "description": "повтор одинаковых знаков препинания",
+      "suggestion": "оставьте один знак <a data-kind=\"replace-whole\" title=\"заменить на этот вариант (Alt-Insert)\" data-word=\"…\">…</a>",
+      "explanation": "в тексте обычно не допускается повторение идущих подряд знаков препинания <a href=\"https://litera5.ru/library/OGL/f.6.15.html\" target=\"_blank\">типографика 6.15</a>",
+      "rule": "f.6.15",
+      "tuid": "#h61c5x"
+    }
+  ],
+  "otherErrors": {},
+  "water": {
+    "content": 0.08326394855976105
+  },
+  "collocations": {
+    "bigram": 0,
+    "trigram": 0,
+    "ngram": 0
+  }
+}</textarea>
+            <textarea class="demo__text demo__text--output" readonly></textarea>
+        </div>
+    </div>
+</section>
+<section class="section cleanupAnnotations">
+    <h2 class="section__title">cleanupAnnotations</h2>
+    <pre><code class="section__code">var utils = require('ogxt-utils');
+var cleanHtml = utils.cleanupAnnotations(html);</code></pre>
+    <div class="section__demo demo">
+        <div class="demo__row">
+            <div class="demo__caption">html</div>
+            <div class="demo__caption">cleanHtml</div>
+        </div>
+        <div class="demo__row">
+        <textarea class="demo__text demo__text--input"><p>Мне <span class="annotation visible mkSpelling start end small" data-annotation-idx="0" data-annotation="0" data-kind="mkSpelling" data-tuid="#dlg66q">очинь</span> жаль, что этот лот не оправдал ваших ожиданий.</p><p><span class="annotation visible mkPunctuation start end small" data-annotation-idx="0" data-annotation="1" data-kind="mkPunctuation" data-tuid="#ke6zpt">Надеюсь, что</span><span class="annotation mkTypography start end small" data-annotation-idx="0" data-annotation="2" data-kind="mkTypography" data-tuid="#h61c5x">……</span></p></textarea>
+            <textarea class="demo__text demo__text--output" readonly></textarea>
+        </div>
+    </div>
+</section>
+<script src="main.js"></script>
+</body>
+</html>
